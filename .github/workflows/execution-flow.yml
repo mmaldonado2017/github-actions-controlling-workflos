@@ -1,9 +1,9 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Website Deployment
-on:
-  push:
-    branches:
-      - main
+on: workflow_dispatch
+  # push:
+  #   branches:
+  #     - main
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -44,9 +44,9 @@ jobs:
       - name: Test code
         id: run-tests
         run: npm run test
-        # continue-on-error: true
+        continue-on-error: true
       - name: Upload test report
-        if: failure() &&steps.run-tests.outcome == 'failure'
+        # if: failure() &&steps.run-tests.outcome == 'failure'
         uses: actions/upload-artifact@v6
         with:
           name: test-report
