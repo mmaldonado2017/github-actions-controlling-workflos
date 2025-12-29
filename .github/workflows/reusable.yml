@@ -1,11 +1,9 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Reusable Workflow
-on: workflow_dispatch
+on: workflow_call
 jobs:
-  reusable-workflow:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - id: example-step
-        run: echo "myvar=111" >> "$GITHUB_OUTPUT"
-      - name: print
-        run: echo ${{ steps.example-step.outputs.myvar }}
+      - name: Output message
+        run: echo "This is a reusable workflow!"
