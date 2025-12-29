@@ -1,9 +1,20 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Reusable Workflow
-on: workflow_call
+on: 
+  workflow_call:
+    inputs:
+      artifact-name:
+        description: 'Name of the artifact to download'
+        required: false
+        type: string
+        default: dist
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Output message
         run: echo "This is a reusable workflow!"
+      - name: Get test report
+        uses: actions/download-artifact@v7
+        with:
+          name: ${{ inputs.artifact-name }}
