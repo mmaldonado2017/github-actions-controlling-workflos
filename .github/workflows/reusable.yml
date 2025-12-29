@@ -8,9 +8,18 @@ on:
         required: false
         type: string
         default: dist
+    outputs:
+      myresult:
+        description: 'An example output value'
+        value: ${{ jobs.deploy.outputs.outcome }}
+    # secrets:
+    #   some-secret:
+    #     required: false
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    outputs:
+      outcome: ${{ steps.set-output.outputs.result }}
     steps:
       - name: Output message
         run: echo "This is a reusable workflow!"
@@ -20,3 +29,6 @@ jobs:
           name: ${{ inputs.artifact-name }}
       - name: List contents
         run: ls -l
+      - name: Set Output
+        id: set-output
+        run: echo "result=success" >> $GITHUB_OUTPUT
