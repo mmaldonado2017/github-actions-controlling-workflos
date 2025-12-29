@@ -43,6 +43,17 @@ jobs:
         with:
           name: test-report
           path: test.json
+  report:
+    needs: test
+    runs-on: ubuntu-latest
+    if: failure()
+    steps:
+      - name: Get test report
+        uses: actions/download-artifact@v7
+        with:
+          name: test-report
+      - name: Output test report contents
+        run: cat test.json
   build:
     needs: test
     runs-on: ubuntu-latest
