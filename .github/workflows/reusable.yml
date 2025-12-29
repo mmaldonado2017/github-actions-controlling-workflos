@@ -18,3 +18,5 @@ jobs:
         uses: actions/download-artifact@v7
         with:
           name: ${{ inputs.artifact-name }}
+      - name: List contents
+        run: ls -l
